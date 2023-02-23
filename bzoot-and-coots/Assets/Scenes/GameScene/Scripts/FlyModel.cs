@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 namespace Bzoot
 {
-    public class FlyModel 
+    public class FlyModel
     {
-        public Vector2 Pos { get; private set; }
+        public Vector2 Pos { get; private set; } = new(0, 0);
         public Vector2 SpeedPerSecond { get; private set; }
         
         public Action<Vector2> OnUpdatePosition {set; private get;}

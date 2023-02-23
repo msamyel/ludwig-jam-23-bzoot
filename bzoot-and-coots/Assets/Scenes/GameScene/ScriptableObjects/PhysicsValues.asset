@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PhysicsValues
   m_EditorClassIdentifier: 
   GravityAccPerSecond: 0.6
-  MaxFallingSpeedPerSecond: 1.8
+  MaxFallingSpeedPerSecond: 2.4
   VerticalAccPerSecond: 2.6
   MaxVerticalSpeedPerSecond: 1.3
   HorizontalAccPerSecond: 2
   MaxHorizontalSpeedPerSecond: 1
-  HorizontalDragPerSecond: 0.9
+  HorizontalDragPerSecond: 0.5
