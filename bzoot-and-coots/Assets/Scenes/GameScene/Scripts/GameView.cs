@@ -19,6 +19,7 @@ namespace Bzoot
             _model.Init();
             BindModelToView();
             BindViewToModel();
+            _model.PostInit();
         }
 
         void BindModelToView()
@@ -32,6 +33,9 @@ namespace Bzoot
             _model.OnOpenCootsEarOnTheRight = () => Coots.EarOnTheRight.OpenEar();
 
             _model.OnAttackPlayer = (v) => Coots.AttackPlayer(v);
+            
+            // bzoot -> ui
+            _model.Bzoot.OnUpdateLivesCount = (v) => Ui.SetLives(v);
             
             // coots -> ui
             _model.OnUpdateCootsIrritation = (v) => Ui.SetIrritation(v);

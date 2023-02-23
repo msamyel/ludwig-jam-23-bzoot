@@ -6,19 +6,22 @@ namespace Bzoot
     {
         public readonly FlyModel Bzoot = new();
         public readonly CootsModel Coots = new();
-        
+
         public Action<Vector2> OnUpdateBzootPos { set; private get; }
         public Action OnCloseCootsEarOnTheRight { set; private get; }
         public Action OnCloseCootsEarOnTheLeft { set; private get; }
         public Action OnOpenCootsEarOnTheRight { set; private get; }
         public Action OnOpenCootsEarOnTheLeft { set; private get; }
-        
+
         public Action<float> OnUpdateCootsIrritation { set; private get; }
-        
+
         public Action<Vector2> OnAttackPlayer { set; private get; }
+        public Action<int> OnUpdateBzootLives { set; private get; }
 
         bool _isInitFinished;
-        
+
+        bool _isGameSuspended;
+
         public void Init()
         {
             Bzoot.OnUpdatePosition = (pos) => OnUpdateBzootPos(pos);
@@ -26,13 +29,18 @@ namespace Bzoot
             Coots.Init();
             Coots.OnIncreaseCurrentIrritance = (v) => OnUpdateCootsIrritation(v);
             Coots.OnAttackPlayer = AttackPlayer;
-            
+
             Coots.EarOnTheRight.OnCloseEar = () => OnCloseCootsEarOnTheRight();
             Coots.EarOnTheLeft.OnCloseEar = () => OnCloseCootsEarOnTheLeft();
             Coots.EarOnTheRight.OnOpenEar = () => OnOpenCootsEarOnTheRight();
-            Coots.EarOnTheLeft.OnOpenEar= () => OnOpenCootsEarOnTheLeft();
+            Coots.EarOnTheLeft.OnOpenEar = () => OnOpenCootsEarOnTheLeft();
 
             _isInitFinished = true;
+        }
+
+        public void PostInit()
+        {
+            Bzoot.PostInit();
         }
 
         void Update()
@@ -41,13 +49,18 @@ namespace Bzoot
             {
                 return;
             }
-            
+
+            if (_isGameSuspended)
+            {
+                return;
+            }
+
             HandleInput();
-            
+
             Bzoot.ApplyGravity();
             Bzoot.ApplyHorizontalDrag();
             Bzoot.Move();
-            
+
             Coots.CheckIfPawAttackAvailable();
         }
 
@@ -75,7 +88,12 @@ namespace Bzoot
         public void OnPlayerGotHit()
         {
             Debug.Log("YOU ARE DEAD");
-            //todo: implement here
+            Bzoot.RemoveLife();
+            _isGameSuspended = true;
+            if (Bzoot.LivesCount <= 0)
+            {
+                //todo: implement here
+            }
         }
 
         void AttackPlayer()

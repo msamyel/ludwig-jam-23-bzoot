@@ -6,9 +6,18 @@ namespace Bzoot
     {
         public Vector2 Pos { get; private set; } = new(0, 0);
         public Vector2 SpeedPerSecond { get; private set; }
+
+        public int LivesCount { get; private set; } = 3;
         
         public Action<Vector2> OnUpdatePosition {set; private get;}
+        public Action<int> OnUpdateLivesCount { set; private get; }
 
+        //call after events have been bound
+        public void PostInit()
+        {
+            OnUpdateLivesCount.Invoke(LivesCount);
+        }
+        
         public void Move()
         {
             var bounds = GameSceneEnvironment.Instance.PlayArea;
@@ -79,6 +88,12 @@ namespace Bzoot
 
             float speed = Math.Min(SpeedPerSecond.y + acceleration, MaxVerticalSpeedPerSecond);
             SpeedPerSecond = new Vector2(SpeedPerSecond.x, speed);
+        }
+
+        public void RemoveLife()
+        {
+            LivesCount--;
+            OnUpdateLivesCount.Invoke(LivesCount);
         }
     }
 }
