@@ -30,12 +30,17 @@ namespace Bzoot
             _model.OnCloseCootsEarOnTheRight = () => Coots.EarOnTheRight.CloseEar();
             _model.OnOpenCootsEarOnTheLeft = () => Coots.EarOnTheLeft.OpenEar();
             _model.OnOpenCootsEarOnTheRight = () => Coots.EarOnTheRight.OpenEar();
+
+            _model.OnAttackPlayer = (v) => Coots.CreatePawPrint(v);
             
             // coots -> ui
             _model.OnUpdateCootsIrritation = (v) => Ui.SetIrritation(v);
         }
         void BindViewToModel()
         {
+            //bzoot
+            Bzoot.OnGotHit = () => _model.OnPlayerGotHit();
+            
             // coots
             Coots.EarOnTheLeft.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheLeft();
             Coots.EarOnTheRight.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheRight();

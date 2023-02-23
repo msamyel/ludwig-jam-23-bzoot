@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: CootsValues
   m_EditorClassIdentifier: 
   IncreaseIrritancePerSecondOfCollision: 2
-  MaxCootsTolerance: 16
+  MaxCootsTolerance: 128
+  AttackChancePerSecondOfSound: 0.001
+  AttackChancePerSecondOfSoundHittingEars: 0.005
+  MinimumAttackChanceToTriggerAttack: 0.015
   MaxEarSoundTolerance: 8
   EarClosedIntervalSecs: 10
+  PawShadowIntervalSecs: 1
+  PawCoolDownSecs: 2

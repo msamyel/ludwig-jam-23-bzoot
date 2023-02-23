@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d129deddb40494edb90c1818420feae7, type: 3}
   m_Name: PhysicsValues
   m_EditorClassIdentifier: 
-  GravityAccPerSecond: 0.6
-  MaxFallingSpeedPerSecond: 2.4
-  VerticalAccPerSecond: 2.6
-  MaxVerticalSpeedPerSecond: 1.3
-  HorizontalAccPerSecond: 2
-  MaxHorizontalSpeedPerSecond: 1
-  HorizontalDragPerSecond: 0.5
+  GravityAccPerSecond: 2.8
+  MaxFallingSpeedPerSecond: 3.6
+  VerticalAccPerSecond: 3.6
+  MaxVerticalSpeedPerSecond: 2.6
+  HorizontalAccPerSecond: 3
+  MaxHorizontalSpeedPerSecond: 1.5
+  HorizontalDragPerSecond: 0.8

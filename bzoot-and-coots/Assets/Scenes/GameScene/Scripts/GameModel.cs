@@ -14,6 +14,8 @@ namespace Bzoot
         public Action OnOpenCootsEarOnTheLeft { set; private get; }
         
         public Action<float> OnUpdateCootsIrritation { set; private get; }
+        
+        public Action<Vector2> OnAttackPlayer { set; private get; }
 
         bool _isInitFinished;
         
@@ -23,6 +25,7 @@ namespace Bzoot
 
             Coots.Init();
             Coots.OnIncreaseCurrentIrritance = (v) => OnUpdateCootsIrritation(v);
+            Coots.OnAttackPlayer = AttackPlayer;
             
             Coots.EarOnTheRight.OnCloseEar = () => OnCloseCootsEarOnTheRight();
             Coots.EarOnTheLeft.OnCloseEar = () => OnCloseCootsEarOnTheLeft();
@@ -44,6 +47,8 @@ namespace Bzoot
             Bzoot.ApplyGravity();
             Bzoot.ApplyHorizontalDrag();
             Bzoot.Move();
+            
+            Coots.CheckIfPawAttackAvailable();
         }
 
         void HandleInput()
@@ -60,7 +65,21 @@ namespace Bzoot
             {
                 Bzoot.ApplyHorizontalAcceleration(1);
             }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                //todo: create sound from Bzoot
+                Coots.IncreaseChanceForAttackByGeneralSound();
+            }
         }
-        
+
+        public void OnPlayerGotHit()
+        {
+            //todo: implement here
+        }
+
+        public void AttackPlayer()
+        {
+            OnAttackPlayer.Invoke(Bzoot.Pos);
+        }
     }
 }
