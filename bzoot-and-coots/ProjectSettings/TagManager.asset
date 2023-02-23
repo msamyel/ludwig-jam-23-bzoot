@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Sound
+  - Deadly
   layers:
   - Default
   - TransparentFX
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 3574287227
+    locked: 0
+  - name: Cat
+    uniqueID: 2920014869
     locked: 0
   - name: Player
     uniqueID: 3265172589
