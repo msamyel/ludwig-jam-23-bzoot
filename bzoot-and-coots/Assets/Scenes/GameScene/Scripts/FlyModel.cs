@@ -16,18 +16,26 @@ namespace Bzoot
             //todo: smoothstep to slow down player
             if (!bounds.Contains(newPosition))
             {
-                //todo: determine if slow down verticaly or horizontaly
-                SlowDownVertically();
+                SlowDownWhenReachedBounds(newPosition, bounds);
                 return;
             }
 
             Pos = newPosition;
             OnUpdatePosition.Invoke(Pos);
         }
-
-        void SlowDownVertically()
+        
+        void SlowDownWhenReachedBounds(Vector2 newPos, Bounds bounds)
         {
-            SpeedPerSecond *= new Vector2(1, .5f);
+            //slow down vertically
+            if (!bounds.Contains(new Vector2(0, newPos.y)))
+            {
+                SpeedPerSecond *= new Vector2(1, .5f * Time.deltaTime);
+            }
+            //slow down horizontally
+            if (!bounds.Contains(new Vector2(newPos.x, 0)))
+            {
+                SpeedPerSecond *= new Vector2(.5f * Time.deltaTime, 1);
+            }
         }
 
         public void ApplyGravity()
