@@ -31,7 +31,7 @@ namespace Bzoot
             _model.OnOpenCootsEarOnTheLeft = () => Coots.EarOnTheLeft.OpenEar();
             _model.OnOpenCootsEarOnTheRight = () => Coots.EarOnTheRight.OpenEar();
 
-            _model.OnAttackPlayer = (v) => Coots.CreatePawPrint(v);
+            _model.OnAttackPlayer = (v) => Coots.AttackPlayer(v);
             
             // coots -> ui
             _model.OnUpdateCootsIrritation = (v) => Ui.SetIrritation(v);

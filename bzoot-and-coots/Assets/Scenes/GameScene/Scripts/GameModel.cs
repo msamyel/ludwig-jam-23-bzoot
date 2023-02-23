@@ -74,10 +74,11 @@ namespace Bzoot
 
         public void OnPlayerGotHit()
         {
+            Debug.Log("YOU ARE DEAD");
             //todo: implement here
         }
 
-        public void AttackPlayer()
+        void AttackPlayer()
         {
             OnAttackPlayer.Invoke(Bzoot.Pos);
         }

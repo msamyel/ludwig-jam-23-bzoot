@@ -64,8 +64,6 @@ namespace Bzoot
                 return;
             }
             
-            Debug.Log($"{randomChance} / {_chanceForAttack} is smaller: {randomChance <= _chanceForAttack}");
-            
             foreach (var paw in Paws)
             {
                 if (paw.IsInUse)

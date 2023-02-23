@@ -19,10 +19,16 @@ namespace Bzoot
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log($"OnTriggerEnter2D: {other.gameObject.name}");
             if (other.gameObject.CompareTag("Deadly"))
             {
                 OnGotHit.Invoke();
             }
+        }
+
+        void OnTriggerStay2D(Collider2D other)
+        {
+            Debug.Log($"OnTriggerStay2D: {other.gameObject.name}");
         }
     }
 }
