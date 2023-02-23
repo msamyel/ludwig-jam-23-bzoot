@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
+using DG.Tweening;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace Bzoot
 {
     public class GameModel : MonoBehaviour
     {
-        public readonly FlyModel Bzoot = new();
+        public readonly PlayerModel Bzoot = new();
         public readonly CootsModel Coots = new();
 
         public Action<Vector2> OnUpdateBzootPos { set; private get; }
@@ -16,7 +20,9 @@ namespace Bzoot
         public Action<float> OnUpdateCootsIrritation { set; private get; }
 
         public Action<Vector2> OnAttackPlayer { set; private get; }
-        public Action<int> OnUpdateBzootLives { set; private get; }
+        public Action OnGameOver { set; private get; }
+
+        public Action<PlayPlayerDeadAnimationArgs> OnPlayPlayerDeadAnimation { set; private get; }
 
         bool _isInitFinished;
 
@@ -90,15 +96,36 @@ namespace Bzoot
             Debug.Log("YOU ARE DEAD");
             Bzoot.RemoveLife();
             _isGameSuspended = true;
+
             if (Bzoot.LivesCount <= 0)
             {
-                //todo: implement here
+                OnPlayPlayerDeadAnimation.Invoke(
+                    new PlayPlayerDeadAnimationArgs(
+                        IsRespawn: false,
+                        OnComplete: OnGameOver));
+                return;
             }
+            OnPlayPlayerDeadAnimation.Invoke(new PlayPlayerDeadAnimationArgs(
+                IsRespawn: true,
+                OnComplete: ResumeGameOnPlayerRespawn));
         }
 
         void AttackPlayer()
         {
             OnAttackPlayer.Invoke(Bzoot.Pos);
         }
+
+        void ResumeGameOnPlayerRespawn()
+        {
+            Debug.Log("Resume game");
+            _isGameSuspended = false;
+            Bzoot.RestartOnResume();
+        }
+
+        public void RestartGame()
+            => SceneManager.LoadScene(Constants.Scene.GameScene);
+
+        public void ReturnToMenu()
+            => SceneManager.LoadScene(Constants.Scene.MenuScene);
     }
 }

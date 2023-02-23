@@ -21,7 +21,11 @@ namespace Bzoot
         IEnumerator DisableCollider()
         {
             //wait one frame, disable on next frame
-            yield return null;
+            // yield return null;
+            
+            //enabling for just one frame does not reliably cause collision
+            // enable for a fraction of second instead
+            yield return new WaitForSeconds(GameSceneEnvironment.Instance.Coots.ColliderEnabledDuration);
             _collider.enabled = false;
         }
     }

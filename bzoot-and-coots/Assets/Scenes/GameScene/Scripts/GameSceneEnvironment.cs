@@ -14,8 +14,13 @@ public class GameSceneEnvironment : MonoBehaviour
     [Header("Coots")]
     public CootsValues Coots;
     
+    [Header("Gamecycle")]
+    public GameCycleValues GameCycle;
+    
     [Header("Play Area")]
     [SerializeField] BoxCollider2D _playArea;
+
+
     public Bounds PlayArea => _playArea.bounds;
 
     void Awake()

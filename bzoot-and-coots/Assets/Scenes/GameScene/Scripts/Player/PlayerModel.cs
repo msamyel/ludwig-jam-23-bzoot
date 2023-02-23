@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 namespace Bzoot
 {
-    public class FlyModel
+    public class PlayerModel
     {
         public Vector2 Pos { get; private set; } = new(0, 0);
         public Vector2 SpeedPerSecond { get; private set; }
@@ -94,6 +94,12 @@ namespace Bzoot
         {
             LivesCount--;
             OnUpdateLivesCount.Invoke(LivesCount);
+        }
+
+        public void RestartOnResume()
+        {
+            SpeedPerSecond = new Vector2(0, 0);
+            Pos = GameSceneEnvironment.Instance.GameCycle.BzootRespawnPosition;
         }
     }
 }

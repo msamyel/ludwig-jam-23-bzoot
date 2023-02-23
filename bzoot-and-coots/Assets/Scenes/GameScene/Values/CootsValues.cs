@@ -17,5 +17,6 @@ namespace Bzoot
         [Header("Paws")]
         public float PawShadowIntervalSecs = .5f;
         public float PawCoolDownSecs = 2f;
+        public float ColliderEnabledDuration = .05f;
     }
 }

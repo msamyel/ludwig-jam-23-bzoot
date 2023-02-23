@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Bzoot
 {
-    public class FlyView : MonoBehaviour
+    public class PlayerView : MonoBehaviour
     {
         [SerializeField] Transform _sound;
         public void UpdatePosition(Vector2 position)
@@ -22,13 +22,9 @@ namespace Bzoot
             Debug.Log($"OnTriggerEnter2D: {other.gameObject.name}");
             if (other.gameObject.CompareTag("Deadly"))
             {
+                other.enabled = false;
                 OnGotHit.Invoke();
             }
-        }
-
-        void OnTriggerStay2D(Collider2D other)
-        {
-            Debug.Log($"OnTriggerStay2D: {other.gameObject.name}");
         }
     }
 }
