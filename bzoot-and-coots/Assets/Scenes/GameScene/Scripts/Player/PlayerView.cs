@@ -52,7 +52,7 @@ namespace Bzoot
         {
             var bzootPos = transform.position;
             _bloodstain.localScale = new Vector3(.65f, 0, 1);
-            _bloodstain.position = new Vector3(bzootPos.x, bzootPos.y, -1);
+            _bloodstain.position = new Vector3(bzootPos.x, bzootPos.y, -.5f);
             _bloodstain.gameObject.SetActive(true);
 
             DOTween.Sequence()

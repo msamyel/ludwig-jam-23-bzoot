@@ -18,7 +18,7 @@ namespace Bzoot
         float _currentIrritation;
         float _chanceForAttack;
 
-        CombatPhase _currentCombatPhase;
+        CombatPhase _currentCombatPhase = CombatPhase.FirstPhase;
 
         public Action<float> OnUpdateCurrentIrritance { set; private get; }
         
