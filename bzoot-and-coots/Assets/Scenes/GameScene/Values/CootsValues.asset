@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IncreaseIrritancePerSecondOfCollision: 0.1
   DecreaseIrritanceRatioOnHitPlayer: 0.33
-  AttackChancePerSecondOfSound: 0.001
-  AttackChancePerSecondOfSoundHittingEars: 0.005
-  MinimumAttackChanceToTriggerAttack: 0.015
+  AttackChancePerSecondOfSound: 0.005
+  AttackChancePerSecondOfSoundHittingEars: 0.015
+  MinimumAttackChanceToTriggerAttack: 0.005
   CrazyAttackDuringSecondPhaseChance: 1
   CrazyAttackAttackCountMin: 3
   CrazyAttackAttackCountMax: 9

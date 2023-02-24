@@ -6,7 +6,7 @@ namespace Bzoot
     public class GameSceneUi : MonoBehaviour
     {
         [Header("Progress bar")]
-        [SerializeField] Image _irritationBar;
+        [SerializeField] RectMask2D _irritationBarMask;
         [Header("Lives Display")]
         [SerializeField] Transform _livesRoot;
         [SerializeField] Image _livesPrefab;
@@ -25,14 +25,16 @@ namespace Bzoot
 
         public void Init()
         {
-            
+
             _restartGameButton.onClick.AddListener(() => OnRestart());
             _backToMenuButton.onClick.AddListener(() => OnBackToMenu());
         }
-        
+
         public void SetIrritation(float irritation)
         {
-            _irritationBar.fillAmount = irritation;
+            float paddingFromRight = (1f - irritation) * _irritationBarMask.rectTransform.sizeDelta.x;
+            //Padding to be applied to the masking X = Left Y = Bottom Z = Right W = Top
+            _irritationBarMask.padding = new Vector4(x: 0, y: 0, z: paddingFromRight, w: 0);
         }
 
         public void SetLives(int livesCount)
@@ -49,7 +51,7 @@ namespace Bzoot
 
         public void DisplayGameOver()
         {
-            
+            _gameOverCardRoot.SetActive(true);
         }
     }
 }
