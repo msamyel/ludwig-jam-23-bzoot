@@ -6,6 +6,9 @@ namespace Bzoot
 {
     public class PlayerView : MonoBehaviour
     {
+        [Header("Bzoot")]
+        [SerializeField] SpriteRenderer _spriteRenderer;
+        
         [Header("Create Sound")]
         [SerializeField] Transform _soundWaveRoot;
         [SerializeField] SpriteRenderer _soundWavePrefab;
@@ -48,6 +51,10 @@ namespace Bzoot
             }
         }
 
+        public void AnimateHorizontalSpeed()
+        {
+        }
+        
         public void DrawBloodstain()
         {
             var bzootPos = transform.position;
@@ -59,7 +66,7 @@ namespace Bzoot
                 .SetLink(gameObject)
                 .Append(
                     _bloodstain.DOScale(
-                        new Vector3(.65f, .75f, 1), 5f))
+                        new Vector3(.65f, .75f, 1), 3f))
                 .AppendInterval(1f)
                 .AppendCallback(() =>
                 {

@@ -68,6 +68,9 @@ namespace Bzoot
 
         void PlayPlayerDeadAnimation(PlayPlayerDeadAnimationArgs args)
         {
+            const float scaleOnDead = 1f;
+            const float scaleRegular = .25f;
+            
             float playerZ = Bzoot.transform.position.z;
 
             var values = GameSceneEnvironment.Instance.GameCycle;
@@ -75,16 +78,16 @@ namespace Bzoot
             var seq = DOTween.Sequence()
                 .SetLink(gameObject)
                 // get bigger
-                .Append(Bzoot.transform.DOScale(2f, .5f))
+                .Append(Bzoot.transform.DOScale(scaleOnDead, .5f))
                 .AppendInterval(1f)
                 // slide down
                 .AppendCallback(Bzoot.DrawBloodstain)
-                .Append(Bzoot.transform.DOLocalMoveY(-8f, 5f).SetRelative());
+                .Append(Bzoot.transform.DOLocalMoveY(-8f, 3f).SetRelative());
 
             if (args.IsRespawn)
             {
                 // teleport left of screen
-                seq.Append(Bzoot.transform.DOScale(1f, 0))
+                seq.Append(Bzoot.transform.DOScale(scaleRegular, 0))
                     .Append(Bzoot.transform.DOLocalMove(new Vector3(-8, values.BzootRespawnPosition.y, playerZ), 0))
                     //fly back to scene
                     .Append(Bzoot.transform.DOLocalMoveX(values.BzootRespawnPosition.x, 2f));

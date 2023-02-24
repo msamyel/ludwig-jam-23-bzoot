@@ -71,7 +71,7 @@ namespace Bzoot
 
         void HandleInput()
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 Bzoot.ApplyVerticalAcceleration();
             }
@@ -83,7 +83,7 @@ namespace Bzoot
             {
                 Bzoot.ApplyHorizontalAcceleration(1);
             }
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.Space))
             {
                 //todo: create sound from Bzoot
                 Bzoot.CreateSound();
