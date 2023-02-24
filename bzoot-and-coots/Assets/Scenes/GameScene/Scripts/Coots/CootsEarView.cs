@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Bzoot
@@ -8,13 +9,17 @@ namespace Bzoot
         public Action OnCollideWithSound { set; private get; }
 
         SpriteRenderer _renderer;
+        Collider2D _collider;
         [SerializeField] Sprite _spriteOpen;
         [SerializeField] Sprite _spriteHalfOpen;
         [SerializeField] Sprite _spriteClosed;
         
+        const float AnimFrameDurationSecs = .05f;
+            
         void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<Collider2D>();
         }
 
         void OnTriggerStay2D(Collider2D other)
@@ -27,14 +32,28 @@ namespace Bzoot
 
         public void CloseEar()
         {
-            //todo: implement animation
-            _renderer.enabled = false;
+            _collider.enabled = false;
+            StartCoroutine(CloseEarAnimation());
+        }
+
+        IEnumerator CloseEarAnimation()
+        {
+            _renderer.sprite = _spriteHalfOpen;
+            yield return new WaitForSeconds(AnimFrameDurationSecs);
+            _renderer.sprite = _spriteClosed;
         }
 
         public void OpenEar()
         {
-            //todo: implement animation
-            _renderer.enabled = true;
+            _collider.enabled = true;
+            StartCoroutine(OpenEarAnimation());
+        }
+        
+        IEnumerator OpenEarAnimation()
+        {
+            _renderer.sprite = _spriteHalfOpen;
+            yield return new WaitForSeconds(AnimFrameDurationSecs);
+            _renderer.sprite = _spriteOpen;
         }
     }
 }
