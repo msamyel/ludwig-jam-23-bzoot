@@ -8,9 +8,12 @@ namespace Bzoot
         public Vector2 SpeedPerSecond { get; private set; }
 
         public int LivesCount { get; private set; } = 3;
+
+        public bool _isCanCreateSound = true;
         
         public Action<Vector2> OnUpdatePosition {set; private get;}
         public Action<int> OnUpdateLivesCount { set; private get; }
+        public Action OnCreateSound { set; private get; }
 
         //call after events have been bound
         public void PostInit()
@@ -90,6 +93,25 @@ namespace Bzoot
             SpeedPerSecond = new Vector2(SpeedPerSecond.x, speed);
         }
 
+        public void CreateSound()
+        {
+            if (!_isCanCreateSound)
+            {
+                return;
+            }
+            OnCreateSound.Invoke();
+            _isCanCreateSound = false;
+            
+            GameSceneEnvironment.Instance.StartDelayedFunction(
+                GameSceneEnvironment.Instance.Physics.CreateSoundCooldownSecs,
+                ReenableSound);
+        }
+
+        void ReenableSound()
+        {
+            _isCanCreateSound = true;
+        }
+
         public void RemoveLife()
         {
             LivesCount--;
@@ -100,6 +122,7 @@ namespace Bzoot
         {
             SpeedPerSecond = new Vector2(0, 0);
             Pos = GameSceneEnvironment.Instance.GameCycle.BzootRespawnPosition;
+            _isCanCreateSound = true;
         }
     }
 }

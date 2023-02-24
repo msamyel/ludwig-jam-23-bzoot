@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using DG.Tweening;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Bzoot
@@ -87,6 +84,7 @@ namespace Bzoot
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 //todo: create sound from Bzoot
+                Bzoot.CreateSound();
                 Coots.IncreaseChanceForAttackByGeneralSound();
             }
         }

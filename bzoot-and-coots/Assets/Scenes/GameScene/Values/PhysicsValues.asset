@@ -19,3 +19,7 @@ MonoBehaviour:
   HorizontalAccPerSecond: 3
   MaxHorizontalSpeedPerSecond: 1.5
   HorizontalDragPerSecond: 0.8
+  CreateSoundCooldownSecs: 0.25
+  SoundObjectScaleFinal: 0.33
+  SoundObjectScaleUpDurationSecs: 1
+  SoundObjectScaleupEase: 6

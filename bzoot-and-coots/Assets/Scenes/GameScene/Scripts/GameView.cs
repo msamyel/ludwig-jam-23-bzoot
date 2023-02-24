@@ -30,6 +30,7 @@ namespace Bzoot
         {
             // bzoot 
             _model.OnUpdateBzootPos = (pos) => Bzoot.UpdatePosition(pos);
+            _model.Bzoot.OnCreateSound = () => Bzoot.CreateSound();
 
             _model.OnCloseCootsEarOnTheLeft = () => Coots.EarOnTheLeft.CloseEar();
             _model.OnCloseCootsEarOnTheRight = () => Coots.EarOnTheRight.CloseEar();
