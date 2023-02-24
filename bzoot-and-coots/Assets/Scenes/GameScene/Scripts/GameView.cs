@@ -19,10 +19,12 @@ namespace Bzoot
         {
             _model = GetComponent<GameModel>();
             _model.Init();
+            Coots.Init();
             BindModelToView();
             BindViewToModel();
             _model.PostInit();
 
+            
             Ui.Init();
         }
 
@@ -76,6 +78,7 @@ namespace Bzoot
                 .Append(Bzoot.transform.DOScale(2f, .5f))
                 .AppendInterval(1f)
                 // slide down
+                .AppendCallback(Bzoot.DrawBloodstain)
                 .Append(Bzoot.transform.DOLocalMoveY(-8f, 5f).SetRelative());
 
             if (args.IsRespawn)

@@ -20,6 +20,17 @@ namespace Bzoot
         public Sprite MouthSpriteNormal;
         public Sprite MouthSpriteAngry;
 
+        [Header("Eyes")]
+        public Transform IrisRoot;
+        public Transform Irises;
+
+        Sequence _irisAnimation;
+
+        public void Init()
+        {
+            AnimateEyes();
+        }
+
         public void AttackPlayer(Vector2 position)
         {
             CreatePawPrint(position);
@@ -37,13 +48,13 @@ namespace Bzoot
                 GameSceneEnvironment.Instance.Coots.CrazyAttackAttackCountMax + 1);
 
             float attackRadius = GameSceneEnvironment.Instance.Coots.CrazyAttackRadius;
-            
+
             for (int i = 0; i < attackCount; i++)
             {
                 Vector2 randomPosition = playerPosition
-                              + new Vector2(
-                                  Random.Range(-attackRadius, attackRadius),
-                                  Random.Range(-attackRadius, attackRadius));
+                                         + new Vector2(
+                                             Random.Range(-attackRadius, attackRadius),
+                                             Random.Range(-attackRadius, attackRadius));
                 CreatePawPrint(randomPosition);
                 yield return new WaitForSecondsRealtime(GameSceneEnvironment.Instance.Coots.CrazyAttackIntervalBetweenAttackSecs);
             }
@@ -70,7 +81,8 @@ namespace Bzoot
             yield return new WaitForSeconds(GameSceneEnvironment.Instance.Coots.PawShadowIntervalSecs);
             //create paw
             var paw = Instantiate(PawPrefab, PawRoot);
-            paw.transform.position = new Vector3(0, 0, -2f);
+            paw.transform.position = new Vector3(Random.Range(-5,5), Random.Range(-5,0), -2f);
+            paw.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-30, 31));
             //todo: maybe add rotation
             float animationDurationSecs = GameSceneEnvironment.Instance.Coots.PawAnimationDuration;
             paw.transform.DOLocalMove(new Vector3(playerPosition.x, playerPosition.y, -2), animationDurationSecs);
@@ -79,6 +91,28 @@ namespace Bzoot
             //wait one frame
             yield return new WaitForSeconds(.1f);
             Destroy(paw.gameObject);
+        }
+
+        void AnimateEyes()
+        {
+            _irisAnimation?.Kill(complete: false);
+
+            _irisAnimation = DOTween.Sequence()
+                .SetLink(gameObject)
+                .Append(
+                    Irises.DOLocalMove(new Vector3(0, 0, -1), .1f))
+                .Append(
+                    Irises.DOShakePosition(
+                        duration: 2f,
+                        strength: Vector2.one * 0.02f,
+                        vibrato: 1,
+                        fadeOut: false))
+                .OnComplete(() => AnimateEyes());
+        }
+
+        void FocusIrisesOnPlayer(Vector2 playerPos)
+        {
+            _irisAnimation?.Kill(complete: false);
         }
     }
 }
