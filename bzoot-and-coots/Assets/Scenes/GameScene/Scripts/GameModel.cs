@@ -17,6 +17,7 @@ namespace Bzoot
         public Action<float> OnUpdateCootsIrritation { set; private get; }
 
         public Action<Vector2> OnAttackPlayer { set; private get; }
+        public Action<Vector2> OnAttackPlayerCrazy { set; private get; }
         public Action OnGameOver { set; private get; }
 
         public Action<PlayPlayerDeadAnimationArgs> OnPlayPlayerDeadAnimation { set; private get; }
@@ -30,8 +31,9 @@ namespace Bzoot
             Bzoot.OnUpdatePosition = (pos) => OnUpdateBzootPos(pos);
 
             Coots.Init();
-            Coots.OnIncreaseCurrentIrritance = (v) => OnUpdateCootsIrritation(v);
+            Coots.OnUpdateCurrentIrritance = (v) => OnUpdateCootsIrritation(v);
             Coots.OnAttackPlayer = AttackPlayer;
+            Coots.OnStartCrazyAttack = AttackPlayerCrazy;
 
             Coots.EarOnTheRight.OnCloseEar = () => OnCloseCootsEarOnTheRight();
             Coots.EarOnTheLeft.OnCloseEar = () => OnCloseCootsEarOnTheLeft();
@@ -93,6 +95,7 @@ namespace Bzoot
         {
             Debug.Log("YOU ARE DEAD");
             Bzoot.RemoveLife();
+            Coots.ResetValuesOnPlayerRespawn();
             _isGameSuspended = true;
 
             if (Bzoot.LivesCount <= 0)
@@ -111,6 +114,11 @@ namespace Bzoot
         void AttackPlayer()
         {
             OnAttackPlayer.Invoke(Bzoot.Pos);
+        }
+
+        void AttackPlayerCrazy()
+        {
+            OnAttackPlayerCrazy.Invoke(Bzoot.Pos);
         }
 
         void ResumeGameOnPlayerRespawn()

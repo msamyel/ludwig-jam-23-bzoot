@@ -8,6 +8,9 @@ namespace Bzoot
         public Action OnCollideWithSound { set; private get; }
 
         SpriteRenderer _renderer;
+        [SerializeField] Sprite _spriteOpen;
+        [SerializeField] Sprite _spriteHalfOpen;
+        [SerializeField] Sprite _spriteClosed;
         
         void Awake()
         {

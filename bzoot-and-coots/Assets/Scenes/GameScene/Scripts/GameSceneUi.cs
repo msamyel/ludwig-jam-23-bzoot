@@ -30,10 +30,9 @@ namespace Bzoot
             _backToMenuButton.onClick.AddListener(() => OnBackToMenu());
         }
         
-        public void SetIrritation(float absoluteIrritation)
+        public void SetIrritation(float irritation)
         {
-            float percentage = absoluteIrritation / GameSceneEnvironment.Instance.Coots.MaxCootsTolerance;
-            _irritationBar.fillAmount = percentage;
+            _irritationBar.fillAmount = irritation;
         }
 
         public void SetLives(int livesCount)

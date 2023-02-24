@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dee9c0ae37d4f9aa46457c15d02992, type: 3}
   m_Name: CootsValues
   m_EditorClassIdentifier: 
-  IncreaseIrritancePerSecondOfCollision: 2
-  MaxCootsTolerance: 128
+  IncreaseIrritancePerSecondOfCollision: 0.1
+  DecreaseIrritanceRatioOnHitPlayer: 0.33
   AttackChancePerSecondOfSound: 0.001
   AttackChancePerSecondOfSoundHittingEars: 0.005
   MinimumAttackChanceToTriggerAttack: 0.015
-  MaxEarSoundTolerance: 8
+  CrazyAttackDuringSecondPhaseChance: 1
+  CrazyAttackAttackCountMin: 3
+  CrazyAttackAttackCountMax: 9
+  CrazyAttackRadius: 1
+  CrazyAttackIntervalBetweenAttackSecs: 0.1
+  MaxEarSoundTolerance: 0.08
   EarClosedIntervalSecs: 10
-  PawShadowIntervalSecs: 1
+  PawShadowIntervalSecs: 0.8
   PawCoolDownSecs: 2
+  ColliderEnabledDuration: 0.05
+  PawAnimationDuration: 0.1

@@ -38,6 +38,7 @@ namespace Bzoot
             _model.OnOpenCootsEarOnTheRight = () => Coots.EarOnTheRight.OpenEar();
 
             _model.OnAttackPlayer = (v) => Coots.AttackPlayer(v);
+            _model.OnAttackPlayerCrazy = (v) => Coots.CrazyAttack(v);
 
             //game cycle
             _model.OnPlayPlayerDeadAnimation = (onComplete) => PlayPlayerDeadAnimation(onComplete);

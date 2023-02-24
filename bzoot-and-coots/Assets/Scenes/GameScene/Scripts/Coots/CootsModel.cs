@@ -15,18 +15,22 @@ namespace Bzoot
             new CootsPawModel()
         };
 
-        float _currentIrritance;
+        float _currentIrritation;
         float _chanceForAttack;
 
-        public Action<float> OnIncreaseCurrentIrritance { set; private get; }
+        CombatPhase _currentCombatPhase;
+
+        public Action<float> OnUpdateCurrentIrritance { set; private get; }
         
         public Action OnAttackPlayer { set; private get; }
+        public Action OnStartCrazyAttack { set; private get; }
 
         public void Init()
         {
             EarOnTheLeft.OnConfirmIncreaseIrritation = () => IrritateCootsBySoundHittingEars();
             EarOnTheRight.OnConfirmIncreaseIrritation = () => IrritateCootsBySoundHittingEars();
         }
+        
         public void IrritateEarOnTheRight()
         {
             EarOnTheRight.IncreaseIrritanceOnSound();
@@ -39,9 +43,8 @@ namespace Bzoot
 
         void IrritateCootsBySoundHittingEars()
         {
-            _currentIrritance += GameSceneEnvironment.Instance.Coots.IncreaseIrritancePerSecondOfCollision * Time.deltaTime;
-            OnIncreaseCurrentIrritance.Invoke(_currentIrritance);
-
+            float newIrritation = _currentIrritation + GameSceneEnvironment.Instance.Coots.IncreaseIrritancePerSecondOfCollision * Time.deltaTime;
+            SetIrritation(newIrritation);
             _chanceForAttack += GameSceneEnvironment.Instance.Coots.AttackChancePerSecondOfSoundHittingEars * Time.deltaTime;
         }
 
@@ -57,13 +60,32 @@ namespace Bzoot
                 return;
             }
             
-            int randomChance = Random.Range(0, 100);
+            float randomChance = Random.Range(0f, 1f);
             
-            if (randomChance >= _chanceForAttack*100)
+            if (randomChance >= _chanceForAttack)
             {
                 return;
             }
-            
+
+            if (_currentCombatPhase >= CombatPhase.CrazyAttackPhase)
+            {
+                float crazyAttackRandomChance = Random.Range(0f, 1f);
+                if (crazyAttackRandomChance <= GameSceneEnvironment.Instance.Coots.CrazyAttackDuringSecondPhaseChance)
+                {
+                    StartCrazyAttack();
+                    return;
+                }
+                StartOnePawAttack();
+                return;
+            }
+            if (_currentCombatPhase >= CombatPhase.FirstPhase)
+            {
+                StartOnePawAttack();
+            }
+        }
+
+        void StartOnePawAttack()
+        {
             foreach (var paw in Paws)
             {
                 if (paw.IsInUse)
@@ -75,6 +97,50 @@ namespace Bzoot
                 _chanceForAttack *= .5f;
                 return;
             }
+        }
+
+        void StartCrazyAttack()
+        {
+            _chanceForAttack = 0;
+            OnStartCrazyAttack.Invoke();
+        }
+
+        public void ResetValuesOnPlayerRespawn()
+        {
+            _chanceForAttack = 0;
+            float newIrritance = _currentIrritation - GameSceneEnvironment.Instance.Coots.DecreaseIrritanceRatioOnHitPlayer;
+            SetIrritation(newIrritance);
+        }
+
+        void SetIrritation(float newValue)
+        {
+            if (newValue < 0)
+            {
+                _currentIrritation = 0;
+            }
+            else
+            {
+                _currentIrritation = newValue;
+            }
+            OnUpdateCurrentIrritance.Invoke(_currentIrritation);
+            UpdateCombatPhase();
+        }
+
+        void UpdateCombatPhase()
+        {
+            _currentCombatPhase = _currentIrritation switch
+            {
+                < .01f => CombatPhase.FirstPhase,
+                < .66f => CombatPhase.CrazyAttackPhase,
+                _ => CombatPhase.LastPhase
+                };
+        }
+
+        enum CombatPhase
+        {
+            FirstPhase,
+            CrazyAttackPhase,
+            LastPhase
         }
     }
 }
