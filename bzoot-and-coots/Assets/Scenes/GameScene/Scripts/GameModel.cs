@@ -93,6 +93,10 @@ namespace Bzoot
 
         public void OnPlayerGotHit()
         {
+            if (_isGameSuspended)
+            {
+                return;
+            }
             Debug.Log("YOU ARE DEAD");
             Bzoot.RemoveLife();
             Coots.ResetValuesOnPlayerRespawn();
