@@ -23,7 +23,7 @@ MonoBehaviour:
   CrazyAttackRadius: 1
   CrazyAttackIntervalBetweenAttackSecs: 0.1
   MaxEarSoundTolerance: 0.08
-  EarClosedIntervalSecs: 10
+  EarClosedIntervalSecs: 7.5
   PawShadowIntervalSecs: 0.8
   PawCoolDownSecs: 2
   ColliderEnabledDuration: 0.05

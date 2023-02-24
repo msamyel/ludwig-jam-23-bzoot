@@ -71,7 +71,7 @@ namespace Bzoot
 
         void HandleInput()
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.W))
             {
                 Bzoot.ApplyVerticalAcceleration();
             }

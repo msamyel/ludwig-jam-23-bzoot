@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GravityAccPerSecond: 2.8
   MaxFallingSpeedPerSecond: 3.6
-  VerticalAccPerSecond: 3.6
+  VerticalAccPerSecond: 4.8
   MaxVerticalSpeedPerSecond: 2.6
   HorizontalAccPerSecond: 3
   MaxHorizontalSpeedPerSecond: 1.5
-  HorizontalDragPerSecond: 0.8
+  HorizontalDragPerSecond: 0.9
   CreateSoundCooldownSecs: 0.25
   SoundObjectScaleFinal: 0.33
   SoundObjectScaleUpDurationSecs: 1
