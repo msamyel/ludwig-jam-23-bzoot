@@ -43,12 +43,15 @@ namespace Bzoot
             if (!bounds.Contains(new Vector2(0, newPos.y)))
             {
                 SpeedPerSecond *= new Vector2(1, .5f * Time.deltaTime);
+                Pos = new Vector2(newPos.x, Pos.y);
             }
             //slow down horizontally
             if (!bounds.Contains(new Vector2(newPos.x, 0)))
             {
                 SpeedPerSecond *= new Vector2(.5f * Time.deltaTime, 1);
+                Pos = new Vector2(Pos.x, newPos.y);
             }
+            OnUpdatePosition.Invoke(Pos);
         }
 
         public void ApplyGravity()

@@ -76,7 +76,9 @@ namespace Bzoot
 
         void HandleInput()
         {
-            if (Input.GetKey(KeyCode.W))
+            bool isAcceleration = Input.GetKey(KeyCode.W);
+            OnUpdateIsVerticalAcceleration.Invoke(isAcceleration);
+            if (isAcceleration)
             {
                 Bzoot.ApplyVerticalAcceleration();
             }
@@ -84,9 +86,7 @@ namespace Bzoot
             {
                 Bzoot.ApplyHorizontalAcceleration(-1);
             }
-            bool isAcceleration = Input.GetKey(KeyCode.D);
-            OnUpdateIsVerticalAcceleration.Invoke(isAcceleration);
-            if (isAcceleration)
+            if (Input.GetKey(KeyCode.D))
             {
                 Bzoot.ApplyHorizontalAcceleration(1);
             }
