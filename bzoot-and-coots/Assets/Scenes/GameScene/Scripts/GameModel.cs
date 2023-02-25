@@ -97,6 +97,10 @@ namespace Bzoot
                 Bzoot.CreateSound();
                 Coots.IncreaseChanceForAttackByGeneralSound();
             }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                PlayerWon();
+            }
         }
 
         public void OnPlayerGotHit()

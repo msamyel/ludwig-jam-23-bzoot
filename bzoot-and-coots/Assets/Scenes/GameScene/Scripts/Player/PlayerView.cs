@@ -9,6 +9,7 @@ namespace Bzoot
         [Header("Bzoot")]
         [SerializeField] SpriteRenderer _spriteRenderer;
         [SerializeField] Animator _spriteAnimator;
+        [SerializeField] Collider2D _collider;
 
         [Header("Create Sound")]
         [SerializeField] Transform _soundWaveRoot;
@@ -67,6 +68,11 @@ namespace Bzoot
         public void AnimateVerticalAcceleration(bool isVerticalAcceleration)
         {
             _spriteAnimator.speed = isVerticalAcceleration ? 1 : 0;
+        }
+
+        public void DisableCollider()
+        {
+            _collider.enabled = false;
         }
 
         public void DrawBloodstain()

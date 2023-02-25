@@ -75,6 +75,8 @@ namespace Bzoot
 
         void HandlePlayerWon()
         {
+            _coots.StopCoroutinesAndCleanObjects();
+            _bzoot.DisableCollider();
             _cootsLeavingAnimation.PlayAnimation(onComplete: () =>
             {
                 if (Ui)

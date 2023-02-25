@@ -20,13 +20,14 @@ namespace Bzoot
         public void PlayAnimation(Action onComplete)
         {
             _speechBubble.gameObject.SetActive(true);
-            StartCoroutine(ContinuousMeowing());
+            
             DOTween.Sequence()
                 .SetLink(gameObject)
                 .Append(
-                    _speechBubble.DOLocalMoveY(.72f, 3f)
+                    _speechBubble.DOLocalMoveY(.72f, 2.2f)
                         .From(6.5f)
                         .SetEase(Ease.InBack))
+                .AppendCallback(() => StartCoroutine(ContinuousMeowing()))
                 .AppendInterval(1f)
                 .AppendCallback(() =>
                 {
@@ -56,10 +57,10 @@ namespace Bzoot
 
         IEnumerator ContinuousMeowing()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
                 SoundPlayer.Instance.PlayRandomSound(GameSceneEnvironment.Instance.CootsMeowAudioClips);
-                yield return new WaitForSeconds(.25f);
+                yield return new WaitForSeconds(.33f);
             }
         }
     }

@@ -36,6 +36,15 @@ namespace Bzoot
             CreatePawPrint(position);
         }
 
+        public void StopCoroutinesAndCleanObjects()
+        {
+            StopAllCoroutines();
+            foreach (Transform t in PawRoot)
+            {
+                Destroy(t.gameObject);
+            }
+        }
+
         public void CrazyAttack(Vector2 playerPosition)
         {
             StartCoroutine(CrazyAttackCoroutine(playerPosition));

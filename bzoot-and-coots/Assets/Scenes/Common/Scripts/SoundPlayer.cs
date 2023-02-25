@@ -17,7 +17,6 @@ namespace Bzoot
             _instance = this;
 
             _audioSource = gameObject.AddComponent<AudioSource>();
-            _audioSource.volume = .5f;
             DontDestroyOnLoad(this);
         }
 

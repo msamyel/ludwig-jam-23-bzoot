@@ -171,7 +171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &143164658
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1043,6 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 798797534}
   _spriteAnimator: {fileID: 798797538}
+  _collider: {fileID: 798797536}
   _soundWaveRoot: {fileID: 139906741}
   _soundWavePrefab: {fileID: 3153775381731099921, guid: fa99875e47135400597f31d822bebfac, type: 3}
   _bzzClips:
@@ -2482,7 +2483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 960, w: 0}
+  m_Padding: {x: 0, y: 0, z: 500, w: 0}
   m_Softness: {x: 0, y: 0}
 --- !u!222 &1967611857
 CanvasRenderer:
