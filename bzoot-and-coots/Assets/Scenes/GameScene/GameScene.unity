@@ -2454,6 +2454,10 @@ MonoBehaviour:
   Coots: {fileID: 11400000, guid: 45cde529677994b86a5b7974516cd1bb, type: 2}
   GameCycle: {fileID: 11400000, guid: f989a2712b8d8472cb122b31fd46f612, type: 2}
   _playArea: {fileID: 217356740}
+  PlayerSmashedAudioClip: {fileID: 8300000, guid: e99ec1ed95148415dbd8064d2a6deac5, type: 3}
+  CootsMeowAudioClips:
+  - {fileID: 8300000, guid: 9683619b02e7d4dc380c63bb82c27c62, type: 3}
+  - {fileID: 8300000, guid: b0901ffeb823f4e7ab1776ae0af6e51d, type: 3}
 --- !u!4 &1836751670
 Transform:
   m_ObjectHideFlags: 0

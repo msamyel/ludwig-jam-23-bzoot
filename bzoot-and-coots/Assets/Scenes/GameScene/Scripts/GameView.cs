@@ -97,6 +97,7 @@ namespace Bzoot
             var seq = DOTween.Sequence()
                 .SetLink(gameObject)
                 // get bigger
+                .AppendCallback(() => SoundPlayer.Instance.PlaySound(GameSceneEnvironment.Instance.PlayerSmashedAudioClip))
                 .Append(_bzoot.transform.DOScale(scaleOnDead, .5f))
                 .AppendInterval(1f)
                 // slide down

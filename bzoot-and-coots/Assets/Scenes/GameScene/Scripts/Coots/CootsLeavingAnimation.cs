@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace Bzoot
         public void PlayAnimation(Action onComplete)
         {
             _speechBubble.gameObject.SetActive(true);
+            StartCoroutine(ContinuousMeowing());
             DOTween.Sequence()
                 .SetLink(gameObject)
                 .Append(
@@ -50,6 +52,15 @@ namespace Bzoot
                 })
                 .AppendInterval(3f)
                 .AppendCallback(() => onComplete.Invoke());
+        }
+
+        IEnumerator ContinuousMeowing()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                SoundPlayer.Instance.PlayRandomSound(GameSceneEnvironment.Instance.CootsMeowAudioClips);
+                yield return new WaitForSeconds(.25f);
+            }
         }
     }
 }

@@ -51,6 +51,7 @@ namespace Bzoot
         public void PostInit()
         {
             Bzoot.PostInit();
+            PlayGameReadySound();
         }
 
         void Update()
@@ -136,6 +137,7 @@ namespace Bzoot
         {
             Debug.Log("Resume game");
             _isGameSuspended = false;
+            PlayGameReadySound();
             Bzoot.RestartOnResume();
         }
 
@@ -143,6 +145,12 @@ namespace Bzoot
         {
             _isGameSuspended = true;
             OnPlayerWon.Invoke();
+        }
+
+        //for now just play single meows sound to signalize that the match has started
+        void PlayGameReadySound()
+        {
+            SoundPlayer.Instance.PlayRandomSound(GameSceneEnvironment.Instance.CootsMeowAudioClips);
         }
 
         public void RestartGame()

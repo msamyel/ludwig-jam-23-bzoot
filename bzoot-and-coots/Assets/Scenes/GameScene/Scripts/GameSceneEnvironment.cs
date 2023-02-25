@@ -21,6 +21,11 @@ namespace Bzoot
         [Header("Play Area")]
         [SerializeField] BoxCollider2D _playArea;
 
+        //todo: there should be better place
+        [Header("Misc Sound Effects")]
+        public AudioClip PlayerSmashedAudioClip;
+        public AudioClip[] CootsMeowAudioClips;
+
         public Bounds PlayArea => _playArea.bounds;
 
         void Awake()
