@@ -21,6 +21,7 @@ namespace Bzoot
         public float MaxEarSoundTolerance = .008f;
         public float EarClosedIntervalSecs = 10f;
         [Header("Paws")]
+        public float DelayBetweenIndividualAttacks = .5f;
         public float PawShadowIntervalSecs = .5f;
         public float PawCoolDownSecs = 2f;
         public float ColliderEnabledDuration = .05f;

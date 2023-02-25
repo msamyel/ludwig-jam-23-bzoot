@@ -23,7 +23,7 @@ namespace Bzoot
         [Header("Eyes")]
         public Transform IrisRoot;
         public Transform Irises;
-
+        
         Sequence _irisAnimation;
 
         public void Init()
@@ -62,11 +62,12 @@ namespace Bzoot
 
         void CreatePawPrint(Vector2 position)
         {
-            //todo: add random rotation (ma
             var pawPrint = Instantiate(PawPrintPrefab, PawRoot);
             pawPrint.transform.position = new Vector3(position.x, position.y, -2);
+            var rotation = Quaternion.Euler(0, 0, Random.Range(-30, 31));
+            pawPrint.transform.rotation = rotation;
             StartCoroutine(DeletePawPrint(pawPrint));
-            StartCoroutine(CreatePaw(position));
+            StartCoroutine(CreatePaw(position,rotation));
         }
 
         IEnumerator DeletePawPrint(GameObject pawPrint)
@@ -75,15 +76,14 @@ namespace Bzoot
             Destroy(pawPrint);
         }
 
-        IEnumerator CreatePaw(Vector2 playerPosition)
+        IEnumerator CreatePaw(Vector2 playerPosition, Quaternion rotation)
         {
             //wait for the paw print to disappear
             yield return new WaitForSeconds(GameSceneEnvironment.Instance.Coots.PawShadowIntervalSecs);
             //create paw
             var paw = Instantiate(PawPrefab, PawRoot);
             paw.transform.position = new Vector3(Random.Range(-5,5), Random.Range(-5,0), -2f);
-            paw.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-30, 31));
-            //todo: maybe add rotation
+            paw.transform.rotation = rotation;
             float animationDurationSecs = GameSceneEnvironment.Instance.Coots.PawAnimationDuration;
             paw.transform.DOLocalMove(new Vector3(playerPosition.x, playerPosition.y, -2), animationDurationSecs);
             yield return new WaitForSeconds(animationDurationSecs);
@@ -113,6 +113,7 @@ namespace Bzoot
         void FocusIrisesOnPlayer(Vector2 playerPos)
         {
             _irisAnimation?.Kill(complete: false);
+            //todo:
         }
     }
 }

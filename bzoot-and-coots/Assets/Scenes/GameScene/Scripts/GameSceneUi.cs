@@ -14,6 +14,8 @@ namespace Bzoot
         [SerializeField] GameObject _gameOverCardRoot;
         [SerializeField] Button _restartGameButton;
         [SerializeField] Button _backToMenuButton;
+        [Header("PlayerWon")]
+        [SerializeField] GameObject _playerWonCardRoot;
 
         public Action OnRestart { set; private get; }
         public Action OnBackToMenu { set; private get; }
@@ -21,6 +23,7 @@ namespace Bzoot
         void Awake()
         {
             _gameOverCardRoot.SetActive(false);
+            _playerWonCardRoot.SetActive(false);
         }
 
         public void Init()
@@ -52,6 +55,11 @@ namespace Bzoot
         public void DisplayGameOver()
         {
             _gameOverCardRoot.SetActive(true);
+        }
+
+        public void DisplayPlayerWon()
+        {
+            _playerWonCardRoot.SetActive(true);
         }
     }
 }

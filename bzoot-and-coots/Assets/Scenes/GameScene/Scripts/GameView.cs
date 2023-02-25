@@ -6,8 +6,11 @@ namespace Bzoot
     public class GameView : MonoBehaviour
     {
         [Header("Object Views")]
-        [SerializeField] PlayerView Bzoot;
-        [SerializeField] CootsView Coots;
+        [SerializeField] PlayerView _bzoot;
+        [SerializeField] CootsView _coots;
+
+        [Header("Animations")]
+        [SerializeField] CootsLeavingAnimation _cootsLeavingAnimation;
 
         [Header("UI")]
         [SerializeField] GameSceneUi Ui;
@@ -18,7 +21,7 @@ namespace Bzoot
         {
             _model = GetComponent<GameModel>();
             _model.Init();
-            Coots.Init();
+            _coots.Init();
             BindModelToView();
             BindViewToModel();
             _model.PostInit();
@@ -30,20 +33,22 @@ namespace Bzoot
         void BindModelToView()
         {
             // bzoot 
-            _model.OnUpdateBzootPos = (pos) => Bzoot.UpdatePosition(pos);
-            _model.Bzoot.OnCreateSound = () => Bzoot.CreateSound();
+            _model.OnUpdateBzootPos = (pos) => _bzoot.UpdatePosition(pos);
+            _model.Bzoot.OnCreateSound = () => _bzoot.CreateSound();
 
-            _model.OnCloseCootsEarOnTheLeft = () => Coots.EarOnTheLeft.CloseEar();
-            _model.OnCloseCootsEarOnTheRight = () => Coots.EarOnTheRight.CloseEar();
-            _model.OnOpenCootsEarOnTheLeft = () => Coots.EarOnTheLeft.OpenEar();
-            _model.OnOpenCootsEarOnTheRight = () => Coots.EarOnTheRight.OpenEar();
+            _model.OnCloseCootsEarOnTheLeft = () => _coots.EarOnTheLeft.CloseEar();
+            _model.OnCloseCootsEarOnTheRight = () => _coots.EarOnTheRight.CloseEar();
+            _model.OnOpenCootsEarOnTheLeft = () => _coots.EarOnTheLeft.OpenEar();
+            _model.OnOpenCootsEarOnTheRight = () => _coots.EarOnTheRight.OpenEar();
 
-            _model.OnAttackPlayer = (v) => Coots.AttackPlayer(v);
-            _model.OnAttackPlayerCrazy = (v) => Coots.CrazyAttack(v);
+            _model.OnAttackPlayer = (v) => _coots.AttackPlayer(v);
+            _model.OnAttackPlayerCrazy = (v) => _coots.CrazyAttack(v);
 
             //game cycle
             _model.OnPlayPlayerDeadAnimation = (onComplete) => PlayPlayerDeadAnimation(onComplete);
             _model.OnGameOver = Ui.DisplayGameOver;
+
+            _model.OnPlayerWon = HandlePlayerWon;
 
             // bzoot -> ui
             _model.Bzoot.OnUpdateLivesCount = (v) => Ui.SetLives(v);
@@ -54,42 +59,55 @@ namespace Bzoot
         void BindViewToModel()
         {
             //bzoot
-            Bzoot.OnGotHit = () => _model.OnPlayerGotHit();
+            _bzoot.OnGotHit = () => _model.OnPlayerGotHit();
 
             // coots
-            Coots.EarOnTheLeft.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheLeft();
-            Coots.EarOnTheRight.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheRight();
+            _coots.EarOnTheLeft.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheLeft();
+            _coots.EarOnTheRight.OnCollideWithSound = () => _model.Coots.IrritateEarOnTheRight();
             
             //ui events
             Ui.OnRestart = () => _model.RestartGame();
             Ui.OnBackToMenu = () => _model.ReturnToMenu();
         }
 
+
+        void HandlePlayerWon()
+        {
+            _cootsLeavingAnimation.PlayAnimation(onComplete: () =>
+            {
+                if (Ui)
+                {
+                    Ui.DisplayPlayerWon();
+                }
+            });
+        }
+        
+        //todo: should be it's separate class
         void PlayPlayerDeadAnimation(PlayPlayerDeadAnimationArgs args)
         {
             const float scaleOnDead = 1f;
             const float scaleRegular = .25f;
             
-            float playerZ = Bzoot.transform.position.z;
+            float playerZ = _bzoot.transform.position.z;
 
             var values = GameSceneEnvironment.Instance.GameCycle;
             
             var seq = DOTween.Sequence()
                 .SetLink(gameObject)
                 // get bigger
-                .Append(Bzoot.transform.DOScale(scaleOnDead, .5f))
+                .Append(_bzoot.transform.DOScale(scaleOnDead, .5f))
                 .AppendInterval(1f)
                 // slide down
-                .AppendCallback(Bzoot.DrawBloodstain)
-                .Append(Bzoot.transform.DOLocalMoveY(-8f, 3f).SetRelative());
+                .AppendCallback(_bzoot.DrawBloodstain)
+                .Append(_bzoot.transform.DOLocalMoveY(-8f, 3f).SetRelative());
 
             if (args.IsRespawn)
             {
                 // teleport left of screen
-                seq.Append(Bzoot.transform.DOScale(scaleRegular, 0))
-                    .Append(Bzoot.transform.DOLocalMove(new Vector3(-8, values.BzootRespawnPosition.y, playerZ), 0))
+                seq.Append(_bzoot.transform.DOScale(scaleRegular, 0))
+                    .Append(_bzoot.transform.DOLocalMove(new Vector3(-8, values.BzootRespawnPosition.y, playerZ), 0))
                     //fly back to scene
-                    .Append(Bzoot.transform.DOLocalMoveX(values.BzootRespawnPosition.x, 2f));
+                    .Append(_bzoot.transform.DOLocalMoveX(values.BzootRespawnPosition.x, 2f));
             }
 
             seq.AppendCallback(() => args.OnComplete?.Invoke());

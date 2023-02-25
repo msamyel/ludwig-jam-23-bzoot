@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8977306054983898731}
   - component: {fileID: 8977306054983898730}
+  - component: {fileID: 7151029898368034594}
   m_Layer: 0
   m_Name: PawPrint
   m_TagString: Untagged
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7151029898368034594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977306054983898728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 663fdfb17bbd441bb7b459f6a391768a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

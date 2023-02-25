@@ -10,7 +10,7 @@ namespace Bzoot
 
         public Action OnCloseEar { set; private get; }
         public Action OnOpenEar { set; private get; }
-        
+
         public Action OnConfirmIncreaseIrritation { set; private get; }
 
         public void IncreaseIrritanceOnSound()
@@ -38,9 +38,13 @@ namespace Bzoot
             );
         }
 
-        void ResetEar()
+        public void ResetEar()
         {
             _irritance = 0f;
+            if (_isEarOpen)
+            {
+                return;
+            }
             _isEarOpen = true;
             OnOpenEar.Invoke();
         }

@@ -1,46 +1,47 @@
 using System;
 using System.Collections;
-using Bzoot;
 using UnityEngine;
 
-public class GameSceneEnvironment : MonoBehaviour
+namespace Bzoot
 {
-    public static GameSceneEnvironment Instance => _instance;
-    static GameSceneEnvironment _instance;
-
-    [Header("Environment")]
-    public GameScenePhysicsValues Physics;
-
-    [Header("Coots")]
-    public CootsValues Coots;
-    
-    [Header("Gamecycle")]
-    public GameCycleValues GameCycle;
-    
-    [Header("Play Area")]
-    [SerializeField] BoxCollider2D _playArea;
-
-
-    public Bounds PlayArea => _playArea.bounds;
-
-    void Awake()
+    public class GameSceneEnvironment : MonoBehaviour
     {
-        if (_instance)
+        public static GameSceneEnvironment Instance => _instance;
+        static GameSceneEnvironment _instance;
+
+        [Header("Environment")]
+        public GameScenePhysicsValues Physics;
+
+        [Header("Coots")]
+        public CootsValues Coots;
+
+        [Header("Gamecycle")]
+        public GameCycleValues GameCycle;
+
+        [Header("Play Area")]
+        [SerializeField] BoxCollider2D _playArea;
+
+        public Bounds PlayArea => _playArea.bounds;
+
+        void Awake()
         {
-            Destroy(this);
-            return;
+            if (_instance)
+            {
+                Destroy(this);
+                return;
+            }
+            _instance = this;
         }
-        _instance = this;
-    }
 
-    public void StartDelayedFunction(float delaySecs, Action func)
-    {
-        StartCoroutine(DelayedFunction(delaySecs, func));
-    }
+        public void StartDelayedFunction(float delaySecs, Action func)
+        {
+            StartCoroutine(DelayedFunction(delaySecs, func));
+        }
 
-    IEnumerator DelayedFunction(float delaySecs, Action func)
-    {
-        yield return new WaitForSeconds(delaySecs);
-        func.Invoke();
+        IEnumerator DelayedFunction(float delaySecs, Action func)
+        {
+            yield return new WaitForSeconds(delaySecs);
+            func.Invoke();
+        }
     }
 }

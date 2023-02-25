@@ -18,6 +18,7 @@ namespace Bzoot
 
         public Action<Vector2> OnAttackPlayer { set; private get; }
         public Action<Vector2> OnAttackPlayerCrazy { set; private get; }
+        public Action OnPlayerWon { set; private get; }
         public Action OnGameOver { set; private get; }
 
         public Action<PlayPlayerDeadAnimationArgs> OnPlayPlayerDeadAnimation { set; private get; }
@@ -34,6 +35,8 @@ namespace Bzoot
             Coots.OnUpdateCurrentIrritance = (v) => OnUpdateCootsIrritation(v);
             Coots.OnAttackPlayer = AttackPlayer;
             Coots.OnStartCrazyAttack = AttackPlayerCrazy;
+
+            Coots.OnIrritationMax = PlayerWon;
 
             Coots.EarOnTheRight.OnCloseEar = () => OnCloseCootsEarOnTheRight();
             Coots.EarOnTheLeft.OnCloseEar = () => OnCloseCootsEarOnTheLeft();
@@ -66,7 +69,7 @@ namespace Bzoot
             Bzoot.ApplyHorizontalDrag();
             Bzoot.Move();
 
-            Coots.CheckIfPawAttackAvailable();
+            Coots.StartAttackIfAvailable();
         }
 
         void HandleInput()
@@ -130,6 +133,12 @@ namespace Bzoot
             Debug.Log("Resume game");
             _isGameSuspended = false;
             Bzoot.RestartOnResume();
+        }
+
+        void PlayerWon()
+        {
+            _isGameSuspended = true;
+            OnPlayerWon.Invoke();
         }
 
         public void RestartGame()

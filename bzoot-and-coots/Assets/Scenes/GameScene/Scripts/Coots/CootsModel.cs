@@ -18,12 +18,16 @@ namespace Bzoot
         float _currentIrritation;
         float _chanceForAttack;
 
+        bool _isAttackOnCooldown;
+
         CombatPhase _currentCombatPhase = CombatPhase.FirstPhase;
 
         public Action<float> OnUpdateCurrentIrritance { set; private get; }
         
         public Action OnAttackPlayer { set; private get; }
         public Action OnStartCrazyAttack { set; private get; }
+        
+        public Action OnIrritationMax { set; private get; }
 
         public void Init()
         {
@@ -53,8 +57,19 @@ namespace Bzoot
             _chanceForAttack += GameSceneEnvironment.Instance.Coots.AttackChancePerSecondOfSound * Time.deltaTime;
         }
 
-        public void CheckIfPawAttackAvailable()
+        public void StartAttackIfAvailable()
         {
+            if (_isAttackOnCooldown)
+            {
+                return;
+            }
+            
+            if (_currentCombatPhase >= CombatPhase.LastPhase)
+            {
+                StartOnePawAttack();
+                return;
+            }
+            
             if (_chanceForAttack < GameSceneEnvironment.Instance.Coots.MinimumAttackChanceToTriggerAttack)
             {
                 return;
@@ -66,7 +81,7 @@ namespace Bzoot
             {
                 return;
             }
-
+            
             if (_currentCombatPhase >= CombatPhase.CrazyAttackPhase)
             {
                 float crazyAttackRandomChance = Random.Range(0f, 1f);
@@ -84,8 +99,22 @@ namespace Bzoot
             }
         }
 
+        void StartCooldown()
+        {
+            _isAttackOnCooldown = true;
+            GameSceneEnvironment.Instance.StartDelayedFunction(
+                GameSceneEnvironment.Instance.Coots.DelayBetweenIndividualAttacks,
+                AttackCooldown);
+        }
+        
+        void AttackCooldown()
+        {
+            _isAttackOnCooldown = false;
+        }
+
         void StartOnePawAttack()
         {
+            Debug.Log("StartOnePawAttack");
             foreach (var paw in Paws)
             {
                 if (paw.IsInUse)
@@ -93,6 +122,8 @@ namespace Bzoot
                     continue;
                 }
                 paw.UsePaw();
+                StartCooldown();
+                
                 OnAttackPlayer.Invoke();
                 _chanceForAttack *= .5f;
                 return;
@@ -102,12 +133,16 @@ namespace Bzoot
         void StartCrazyAttack()
         {
             _chanceForAttack = 0;
+            StartCooldown();
             OnStartCrazyAttack.Invoke();
         }
 
         public void ResetValuesOnPlayerRespawn()
         {
             _chanceForAttack = 0;
+            _isAttackOnCooldown = false;
+            EarOnTheLeft.ResetEar();
+            EarOnTheRight.ResetEar();
             float newIrritance = _currentIrritation - GameSceneEnvironment.Instance.Coots.DecreaseIrritanceRatioOnHitPlayer;
             SetIrritation(newIrritance);
         }
@@ -128,9 +163,14 @@ namespace Bzoot
 
         void UpdateCombatPhase()
         {
+            if (_currentIrritation >= 1f)
+            {
+                OnIrritationMax.Invoke();
+                return;
+            }
             _currentCombatPhase = _currentIrritation switch
             {
-                < .01f => CombatPhase.FirstPhase,
+                < .33f => CombatPhase.FirstPhase,
                 < .66f => CombatPhase.CrazyAttackPhase,
                 _ => CombatPhase.LastPhase
                 };

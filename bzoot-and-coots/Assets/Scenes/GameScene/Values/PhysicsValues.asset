@@ -16,8 +16,8 @@ MonoBehaviour:
   MaxFallingSpeedPerSecond: 3.6
   VerticalAccPerSecond: 4.8
   MaxVerticalSpeedPerSecond: 2.6
-  HorizontalAccPerSecond: 3
-  MaxHorizontalSpeedPerSecond: 1.5
+  HorizontalAccPerSecond: 6
+  MaxHorizontalSpeedPerSecond: 3
   HorizontalDragPerSecond: 0.9
   CreateSoundCooldownSecs: 0.25
   SoundObjectScaleFinal: 0.33
