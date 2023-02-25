@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Bzoot
@@ -17,6 +18,8 @@ namespace Bzoot
         [Header("PlayerWon")]
         [SerializeField] GameObject _playerWonCardRoot;
 
+        Tween _irritationBarAnimation;
+        
         public Action OnRestart { set; private get; }
         public Action OnBackToMenu { set; private get; }
 
@@ -38,6 +41,15 @@ namespace Bzoot
             float paddingFromRight = (1f - irritation) * _irritationBarMask.rectTransform.sizeDelta.x;
             //Padding to be applied to the masking X = Left Y = Bottom Z = Right W = Top
             _irritationBarMask.padding = new Vector4(x: 0, y: 0, z: paddingFromRight, w: 0);
+            
+            _irritationBarAnimation?.Kill(false);
+
+            _irritationBarAnimation = DOTween.To(
+                getter: () => _irritationBarMask.padding.z,
+                setter: (v) => { _irritationBarMask.padding = new Vector4(0, 0, v, 0); },
+                endValue: paddingFromRight,
+                duration: 1f
+            );
         }
 
         public void SetLives(int livesCount)

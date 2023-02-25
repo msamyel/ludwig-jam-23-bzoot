@@ -87,6 +87,7 @@ namespace Bzoot
             float animationDurationSecs = GameSceneEnvironment.Instance.Coots.PawAnimationDuration;
             paw.transform.DOLocalMove(new Vector3(playerPosition.x, playerPosition.y, -2), animationDurationSecs);
             yield return new WaitForSeconds(animationDurationSecs);
+            SoundPlayer.Instance.PlayRandomSound(paw.SoundEffects);
             paw.EnableCollider();
             //wait one frame
             yield return new WaitForSeconds(.1f);

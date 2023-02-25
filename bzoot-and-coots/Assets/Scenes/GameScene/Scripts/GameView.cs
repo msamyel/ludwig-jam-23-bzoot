@@ -106,8 +106,10 @@ namespace Bzoot
 
             if (args.IsRespawn)
             {
+                
                 // teleport left of screen
-                seq.Append(_bzoot.transform.DOScale(scaleRegular, 0))
+                seq.AppendCallback(() => _bzoot.AnimateHorizontalSpeed(.3f))
+                    .Append(_bzoot.transform.DOScale(scaleRegular, 0))
                     .Append(_bzoot.transform.DOLocalMove(new Vector3(-8, values.BzootRespawnPosition.y, playerZ), 0))
                     //fly back to scene
                     .Append(_bzoot.transform.DOLocalMoveX(values.BzootRespawnPosition.x, 2f));
