@@ -1158,6 +1158,7 @@ GameObject:
   - component: {fileID: 798797533}
   - component: {fileID: 798797537}
   - component: {fileID: 798797536}
+  - component: {fileID: 798797538}
   m_Layer: 0
   m_Name: Bzoot
   m_TagString: Untagged
@@ -1177,7 +1178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f39cbf36b154395850c0aa38ed9c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 798797534}
+  _spriteAnimator: {fileID: 798797538}
   _soundWaveRoot: {fileID: 139906741}
   _soundWavePrefab: {fileID: 3153775381731099921, guid: fa99875e47135400597f31d822bebfac, type: 3}
   _bloodstain: {fileID: 2044281980}
@@ -1295,6 +1297,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &798797538
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798797532}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72d10fd828aaf44c4a365aec04348d85, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &857468995
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,8 @@ namespace Bzoot
             // bzoot 
             _model.OnUpdateBzootPos = (pos) => _bzoot.UpdatePosition(pos);
             _model.Bzoot.OnCreateSound = () => _bzoot.CreateSound();
+            _model.Bzoot.OnUpdateHorizontalSpeedPerSecond = (v) => _bzoot.AnimateHorizontalSpeed(v);
+            _model.OnUpdateIsVerticalAcceleration = (v) => _bzoot.AnimateVerticalAcceleration(v);
 
             _model.OnCloseCootsEarOnTheLeft = () => _coots.EarOnTheLeft.CloseEar();
             _model.OnCloseCootsEarOnTheRight = () => _coots.EarOnTheRight.CloseEar();

@@ -16,6 +16,8 @@ namespace Bzoot
 
         public Action<float> OnUpdateCootsIrritation { set; private get; }
 
+        public Action<bool> OnUpdateIsVerticalAcceleration { set; private get; }
+
         public Action<Vector2> OnAttackPlayer { set; private get; }
         public Action<Vector2> OnAttackPlayerCrazy { set; private get; }
         public Action OnPlayerWon { set; private get; }
@@ -82,7 +84,9 @@ namespace Bzoot
             {
                 Bzoot.ApplyHorizontalAcceleration(-1);
             }
-            if (Input.GetKey(KeyCode.D))
+            bool isAcceleration = Input.GetKey(KeyCode.D);
+            OnUpdateIsVerticalAcceleration.Invoke(isAcceleration);
+            if (isAcceleration)
             {
                 Bzoot.ApplyHorizontalAcceleration(1);
             }

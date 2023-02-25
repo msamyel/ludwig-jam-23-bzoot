@@ -8,7 +8,8 @@ namespace Bzoot
     {
         [Header("Bzoot")]
         [SerializeField] SpriteRenderer _spriteRenderer;
-        
+        [SerializeField] Animator _spriteAnimator;
+
         [Header("Create Sound")]
         [SerializeField] Transform _soundWaveRoot;
         [SerializeField] SpriteRenderer _soundWavePrefab;
@@ -51,12 +52,24 @@ namespace Bzoot
             }
         }
 
-        public void AnimateHorizontalSpeed()
+        public void AnimateHorizontalSpeed(float horizontalSpeedPerSecond)
         {
+            bool isFacingFront = Mathf.Abs(horizontalSpeedPerSecond) <= .2f;
+            //sprite is usually facing right
+            _spriteRenderer.flipX = horizontalSpeedPerSecond > -.2f;
+            _spriteAnimator.SetBool("IsFacingFront", isFacingFront);
+
+            transform.rotation = Quaternion.Euler(0, 0, - horizontalSpeedPerSecond * 45f / 3f);
         }
-        
+
+        public void AnimateVerticalAcceleration(bool isVerticalAcceleration)
+        {
+            _spriteAnimator.speed = isVerticalAcceleration ? 1 : 0;
+        }
+
         public void DrawBloodstain()
         {
+            AnimateVerticalAcceleration(false);
             var bzootPos = transform.position;
             _bloodstain.localScale = new Vector3(.65f, 0, 1);
             _bloodstain.position = new Vector3(bzootPos.x, bzootPos.y, -.5f);

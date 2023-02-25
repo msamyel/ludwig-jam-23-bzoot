@@ -12,6 +12,7 @@ namespace Bzoot
         public bool _isCanCreateSound = true;
         
         public Action<Vector2> OnUpdatePosition {set; private get;}
+        public Action<float> OnUpdateHorizontalSpeedPerSecond { set; private get; }
         public Action<int> OnUpdateLivesCount { set; private get; }
         public Action OnCreateSound { set; private get; }
 
@@ -80,6 +81,8 @@ namespace Bzoot
                 GameSceneEnvironment.Instance.Physics.HorizontalDragPerSecond,
                 Time.deltaTime);
             SpeedPerSecond *= new Vector2(drag, 1f);
+            
+            OnUpdateHorizontalSpeedPerSecond.Invoke(SpeedPerSecond.x);
         }
 
         public void ApplyVerticalAcceleration()
