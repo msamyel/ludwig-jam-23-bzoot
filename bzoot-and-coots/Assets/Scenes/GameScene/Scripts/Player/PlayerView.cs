@@ -13,6 +13,7 @@ namespace Bzoot
         [Header("Create Sound")]
         [SerializeField] Transform _soundWaveRoot;
         [SerializeField] SpriteRenderer _soundWavePrefab;
+        [SerializeField] AudioClip[] _bzzClips;
 
         [Header("Vfx")]
         [SerializeField] Transform _bloodstain;
@@ -40,6 +41,7 @@ namespace Bzoot
                 .SetEase(ease)
                 .SetLink(soundSprite.gameObject)
                 .OnComplete(() => Destroy(soundSprite.gameObject));
+            SoundPlayer.Instance.PlayRandomSound(_bzzClips);
         }
 
         void OnTriggerEnter2D(Collider2D other)

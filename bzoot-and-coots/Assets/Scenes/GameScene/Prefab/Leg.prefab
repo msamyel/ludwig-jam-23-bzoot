@@ -254,3 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 8639817108316451308}
+  _soundEffects:
+  - {fileID: 8300000, guid: 34b3a7c82ce6149e391d8e63c97d33d6, type: 3}
+  - {fileID: 8300000, guid: a6570cbba48004096809993083da21d4, type: 3}
+  - {fileID: 8300000, guid: b17ce8d62041c416f825f39d7f5f0f71, type: 3}

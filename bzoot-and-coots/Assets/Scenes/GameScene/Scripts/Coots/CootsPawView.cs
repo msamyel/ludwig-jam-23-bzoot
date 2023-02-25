@@ -6,10 +6,17 @@ namespace Bzoot
     public class CootsPawView : MonoBehaviour
     {
         [SerializeField] Collider2D _collider;
+        [SerializeField] AudioClip[] _soundEffects;
         void Awake()
         {
             //disable collider before animation
             _collider.enabled = false;
+            PlaySoundEffect();
+        }
+
+        void PlaySoundEffect()
+        {
+            SoundPlayer.Instance.PlayRandomSound(_soundEffects);
         }
 
         public void EnableCollider()
