@@ -11,12 +11,13 @@ namespace Bzoot
         [Header("Lives Display")]
         [SerializeField] Transform _livesRoot;
         [SerializeField] Image _livesPrefab;
-        [Header("GameOver")]
-        [SerializeField] GameObject _gameOverCardRoot;
+        [Header("GameEnd")]
+        [SerializeField] GameObject _gameEndRoot;
+        [SerializeField] GameObject _gameWonText;
+        [SerializeField] GameObject _gameLostText;
         [SerializeField] Button _restartGameButton;
         [SerializeField] Button _backToMenuButton;
         [Header("PlayerWon")]
-        [SerializeField] GameObject _playerWonCardRoot;
 
         Tween _irritationBarAnimation;
         
@@ -25,20 +26,21 @@ namespace Bzoot
 
         void Awake()
         {
-            _gameOverCardRoot.SetActive(false);
-            _playerWonCardRoot.SetActive(false);
+            _gameEndRoot.SetActive(false);
         }
 
         public void Init()
         {
-
             _restartGameButton.onClick.AddListener(() => OnRestart());
             _backToMenuButton.onClick.AddListener(() => OnBackToMenu());
         }
 
         public void SetIrritation(float irritation)
         {
+            irritation = Mathf.Clamp01(irritation);
+            
             float paddingFromRight = (1f - irritation) * _irritationBarMask.rectTransform.sizeDelta.x;
+            
             //Padding to be applied to the masking X = Left Y = Bottom Z = Right W = Top
             _irritationBarMask.padding = new Vector4(x: 0, y: 0, z: paddingFromRight, w: 0);
             
@@ -66,12 +68,14 @@ namespace Bzoot
 
         public void DisplayGameOver()
         {
-            _gameOverCardRoot.SetActive(true);
+            _gameLostText.SetActive(true);
+            _gameEndRoot.SetActive(true);
         }
 
         public void DisplayPlayerWon()
         {
-            _playerWonCardRoot.SetActive(true);
+            _gameWonText.SetActive(true);
+            _gameEndRoot.SetActive(true);
         }
     }
 }

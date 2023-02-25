@@ -20,10 +20,10 @@ MonoBehaviour:
   CrazyAttackDuringSecondPhaseChance: 1
   CrazyAttackAttackCountMin: 3
   CrazyAttackAttackCountMax: 9
-  CrazyAttackRadius: 1
+  CrazyAttackRadius: 0.75
   CrazyAttackIntervalBetweenAttackSecs: 0.05
   MaxEarSoundTolerance: 0.08
-  EarClosedIntervalSecs: 7.5
+  EarClosedIntervalSecs: 5
   DelayBetweenIndividualAttacks: 0.5
   PawShadowIntervalSecs: 0.4
   PawCoolDownSecs: 0.5
