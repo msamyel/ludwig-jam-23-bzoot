@@ -123,7 +123,7 @@ namespace Bzoot
         void FocusIrisesOnPlayer(Vector2 playerPos)
         {
             _irisAnimation?.Kill(complete: false);
-            //todo:
+            //todo: finish feature
         }
     }
 }

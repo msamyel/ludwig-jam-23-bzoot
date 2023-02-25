@@ -27,6 +27,7 @@ namespace Bzoot
         void Awake()
         {
             _gameEndRoot.SetActive(false);
+            ResetIrritationBar();
         }
 
         public void Init()
@@ -52,6 +53,11 @@ namespace Bzoot
                 endValue: paddingFromRight,
                 duration: 1f
             );
+        }
+
+        void ResetIrritationBar()
+        {
+            _irritationBarMask.padding = new Vector4(0, 0, _irritationBarMask.rectTransform.sizeDelta.x, 0);
         }
 
         public void SetLives(int livesCount)

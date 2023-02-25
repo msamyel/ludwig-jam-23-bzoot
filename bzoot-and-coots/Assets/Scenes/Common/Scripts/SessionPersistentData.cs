@@ -7,6 +7,7 @@ namespace Bzoot
         static SessionPersistentData _instance;
 
         public bool IsSoundEffectEnabled { get; set; } = true;
+        public bool IsInitialAnimationCompletedOnce { get; set; } = false;
         
         void Awake()
         {

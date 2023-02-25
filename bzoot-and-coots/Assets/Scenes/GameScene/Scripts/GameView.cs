@@ -75,6 +75,7 @@ namespace Bzoot
 
         void HandlePlayerWon()
         {
+            UnbindOnGameEnd();
             _coots.StopCoroutinesAndCleanObjects();
             _bzoot.DisableCollider();
             _cootsLeavingAnimation.PlayAnimation(onComplete: () =>
@@ -84,6 +85,12 @@ namespace Bzoot
                     Ui.DisplayPlayerWon();
                 }
             });
+        }
+
+        void UnbindOnGameEnd()
+        {
+            _model.Coots.EarOnTheLeft.OnOpenEar = () => { };
+            _model.Coots.EarOnTheRight.OnOpenEar = () => { };
         }
         
         //todo: should be it's separate class

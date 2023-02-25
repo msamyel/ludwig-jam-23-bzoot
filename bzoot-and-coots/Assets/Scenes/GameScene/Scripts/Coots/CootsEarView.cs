@@ -38,7 +38,10 @@ namespace Bzoot
 
         IEnumerator CloseEarAnimation()
         {
-            _renderer.sprite = _spriteHalfOpen;
+            if (_renderer.sprite == _spriteOpen)
+            {
+                _renderer.sprite = _spriteHalfOpen;
+            }
             yield return new WaitForSeconds(AnimFrameDurationSecs);
             _renderer.sprite = _spriteClosed;
         }
@@ -51,7 +54,10 @@ namespace Bzoot
         
         IEnumerator OpenEarAnimation()
         {
-            _renderer.sprite = _spriteHalfOpen;
+            if (_renderer.sprite == _spriteClosed)
+            {
+                _renderer.sprite = _spriteHalfOpen;
+            }
             yield return new WaitForSeconds(AnimFrameDurationSecs);
             _renderer.sprite = _spriteOpen;
         }
