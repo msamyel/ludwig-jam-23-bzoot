@@ -94,7 +94,9 @@ namespace Bzoot
             paw.transform.position = new Vector3(Random.Range(-5,5), Random.Range(-5,0), -2f);
             paw.transform.rotation = rotation;
             float animationDurationSecs = GameSceneEnvironment.Instance.Coots.PawAnimationDuration;
-            paw.transform.DOLocalMove(new Vector3(playerPosition.x, playerPosition.y, -2), animationDurationSecs);
+            paw.transform
+                .DOLocalMove(new Vector3(playerPosition.x, playerPosition.y, -2), animationDurationSecs)
+                .SetLink(paw.gameObject);
             yield return new WaitForSeconds(animationDurationSecs);
             SoundPlayer.Instance.PlayRandomSound(paw.SoundEffects);
             paw.EnableCollider();

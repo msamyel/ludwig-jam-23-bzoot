@@ -52,7 +52,7 @@ namespace Bzoot
                 .Append(_blackCurtain.DOFade(0, .3f))
                 .AppendCallback(() => _blackCurtain.gameObject.SetActive(false))
                 .Append(
-                    _onePlayerGameStartButton.transform.DOLocalMoveY(-289, 2f)
+                    _onePlayerGameStartButton.transform.DOLocalMoveY(-289, 1f)
                         .SetEase(Ease.InBack));
 
             if (SessionPersistentData.Instance.IsInitialAnimationCompletedOnce)
